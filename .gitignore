@@ -1,0 +1,92 @@
+# ───── 依赖与构建产物 ─────
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ───── Vite 临时文件 ─────
+*.timestamp-*.mjs
+vite.log
+vite.config.ts.timestamp-*
+
+# ───── Python 缓存与产物 ─────
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+.eggs/
+
+# ───── 环境与配置 ─────
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+
+# ───── 日志与临时文件 ─────
+*.log
+backend.log
+backend/*.log
+logs/
+backend/logs/
+
+# ───── 数据库与备份 ─────
+backend/data/*.db
+backend/data/*.bak*
+backend/data/*.db.bak*
+backend/data/models/*.tar.bz2
+
+# ───── 用户知识文档（运行期数据）─────
+backend/data/knowledge/*
+!backend/data/knowledge/.gitkeep
+
+# ───── 上传文件（用户数据）─────
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# ───── IDE 与编辑器 ─────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ───── IDE 辅助数据（本机项目记忆等，不提交）─────
+.codebuddy/
+
+# ───── 操作系统 ─────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ───── 测试与覆盖率 ─────
+coverage/
+htmlcov/
+.nyc_output/
+test-results/
+playwright-report/
+
+# ───── 类型检查与 lint 缓存 ─────
+.mypy_cache/
+.ruff_cache/
+
+# ───── Docker ─────
+docker-compose.override.yml
+
+# ───── 调试脚本（一次性）─────
+debug-*.ts
+debug-*.py
+test-bazi*.ts
+calc-offset.ts
+_*.cjs
+_*.ps1
+_*.txt
+_*.mjs
+bazi-flow-*.mjs
+diag*.mjs
+e2e-*.log
+e2e-*.pid
+*.tsbuildinfo
+*_json_output.json

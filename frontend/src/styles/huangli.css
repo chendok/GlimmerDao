@@ -1,0 +1,1359 @@
+/* ─────────────────────────────────────────────
+   Huangli Panel (黄历择吉)
+   从 App.css 拆分，依赖全局 tokens.css 与八字表单基础样式（.bazi-*）
+   ───────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────
+   Huangli Panel (黄历择吉)
+   ───────────────────────────────────────────── */
+
+/* 黄道择吉表单/结果容器专用宽度（不影响其他功能页面） */
+/* 表单视图含 .huangli-calendar，结果视图含 .huangli-result-header */
+.feature-layout.bottom .feature-result:has(.huangli-calendar),
+.feature-layout.bottom .feature-result:has(.huangli-result-header) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Element 1: .feature-bazi 宽度 800px */
+.feature-layout.bottom .feature-result:has(.huangli-calendar) > .feature-bazi,
+.feature-layout.bottom .feature-result:has(.huangli-result-header) > .feature-bazi {
+  width: 800px;
+  max-width: 800px;
+}
+
+/* Element 2: .bazi-form-card 宽度 752px */
+.feature-layout.bottom .feature-result:has(.huangli-calendar) > .feature-bazi > .bazi-form-card,
+.feature-layout.bottom .feature-result:has(.huangli-result-header) > .feature-bazi > .bazi-form-card {
+  width: 752px;
+}
+
+.huangli-panel {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-4);
+  color: hsl(var(--color-text-primary));
+}
+
+/* ── Header / Month Nav ── */
+.huangli-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.huangli-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.huangli-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-bg-surface));
+  color: hsl(var(--color-text-secondary));
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.huangli-nav-btn:hover {
+  border-color: hsl(var(--color-accent));
+  color: hsl(var(--color-accent));
+}
+
+.huangli-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.huangli-nav-btn:disabled:hover {
+  border-color: hsl(var(--color-border));
+  color: hsl(var(--color-text-secondary));
+}
+
+.huangli-month-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 160px;
+}
+
+.huangli-month-year {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-month-lunar {
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-muted));
+  margin-top: 2px;
+}
+
+.huangli-today-btn {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid hsl(var(--color-accent));
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: hsl(var(--color-accent));
+  font-size: var(--text-base);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.huangli-today-btn:hover {
+  background: hsl(var(--color-accent) / 0.1);
+}
+
+/* ── 筛选吉日下拉框 ── */
+.huangli-filter-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.huangli-filter-select-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-muted));
+  white-space: nowrap;
+}
+
+.huangli-filter-select {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-bg-surface));
+  color: hsl(var(--color-text-primary));
+  font-size: var(--text-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  max-width: 260px;
+  min-width: 180px;
+  outline: none;
+}
+
+.huangli-filter-select:hover {
+  border-color: hsl(var(--color-accent));
+}
+
+.huangli-filter-select:focus {
+  border-color: hsl(var(--color-accent));
+  box-shadow: 0 0 0 3px hsl(var(--color-accent) / 0.15);
+}
+
+.huangli-filter-select optgroup {
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-filter-select option {
+  color: hsl(var(--color-text-primary));
+  padding: var(--space-2);
+}
+
+.huangli-filter-confirm-btn {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid hsl(var(--color-accent));
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-accent));
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+}
+
+.huangli-filter-confirm-btn:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.huangli-filter-confirm-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.huangli-filter-confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── 人员选择区域 ── */
+.huangli-person-section {
+  margin-bottom: var(--space-4);
+}
+
+/* 未选择人员：双按钮入口 */
+.huangli-person-picker {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.huangli-person-archive-btn,
+.huangli-person-manual-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-surface));
+  color: hsl(var(--color-text-primary));
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  flex: 1;
+  justify-content: center;
+}
+
+.huangli-person-archive-btn:hover,
+.huangli-person-manual-btn:hover {
+  border-color: hsl(var(--color-accent));
+  background: hsl(var(--color-accent) / 0.06);
+  color: hsl(var(--color-accent));
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px hsl(var(--color-accent) / 0.1);
+}
+
+.huangli-person-archive-btn:active,
+.huangli-person-manual-btn:active {
+  transform: scale(0.98);
+}
+
+.huangli-person-archive-btn svg,
+.huangli-person-manual-btn svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* 已选人员卡片 */
+.huangli-person-selected {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: hsl(142 60% 40% / 0.08);
+  border: 1px solid hsl(142 60% 40% / 0.2);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.huangli-person-selected-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.huangli-person-selected-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.huangli-person-selected-info svg {
+  color: hsl(142 60% 45%);
+  flex-shrink: 0;
+}
+
+.huangli-person-selected-name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(142 60% 45%);
+  white-space: nowrap;
+}
+
+.huangli-person-selected-gender {
+  font-size: var(--text-xs);
+  color: hsl(var(--color-text-muted));
+  padding: 1px var(--space-2);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.huangli-person-selected-meta {
+  font-size: var(--text-xs);
+  color: hsl(var(--color-text-muted));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 真太阳时信息 */
+.huangli-person-ts-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 var(--space-3);
+  border-left: 1px solid hsl(142 60% 40% / 0.15);
+  flex-shrink: 0;
+}
+
+.huangli-person-ts-label {
+  font-size: 11px;
+  color: hsl(var(--color-text-muted));
+  font-weight: var(--weight-medium);
+}
+
+.huangli-person-ts-value {
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-primary));
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+}
+
+/* 取消选择按钮 */
+.huangli-person-deselect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: hsl(var(--color-text-muted));
+  font-size: var(--text-xs);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--duration-fast);
+}
+
+.huangli-person-deselect-btn:hover {
+  border-color: hsl(0 60% 50% / 0.4);
+  color: hsl(0 60% 50%);
+  background: hsl(0 60% 50% / 0.08);
+}
+
+/* ── Loading ── */
+.huangli-loading {
+  text-align: center;
+  padding: var(--space-8);
+  color: hsl(var(--color-text-muted));
+  font-size: var(--text-base);
+}
+
+.huangli-detail-loading {
+  text-align: center;
+  padding: var(--space-4);
+  color: hsl(var(--color-text-muted));
+  font-size: var(--text-base);
+  animation: huangli-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes huangli-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.huangli-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  margin: 0 var(--space-2);
+  background: hsl(var(--color-bg-hover) / 0.5);
+  border: 1px solid hsl(var(--color-error) / 0.25);
+  border-radius: var(--radius-lg);
+  color: hsl(var(--color-text-secondary));
+  font-size: var(--text-base);
+}
+
+.huangli-error button {
+  padding: 7px 18px;
+  border: 1px solid hsl(var(--color-accent) / 0.4);
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-accent) / 0.1);
+  color: hsl(var(--color-accent));
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: background-color var(--duration-fast);
+}
+
+.huangli-error button:hover {
+  background: hsl(var(--color-accent) / 0.2);
+}
+
+/* ── Calendar ── */
+.huangli-calendar {
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: hsl(var(--color-bg-surface));
+}
+
+.huangli-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: hsl(var(--color-bg-hover));
+  border-bottom: 1px solid hsl(var(--color-border));
+}
+
+.huangli-weekday {
+  text-align: center;
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-muted));
+}
+
+.huangli-weekday:first-child,
+.huangli-weekday:last-child {
+  color: hsl(0, 60%, 55%);
+}
+
+.huangli-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.huangli-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 2px;
+  border-bottom: 1px solid hsl(var(--color-border) / 0.4);
+  border-right: 1px solid hsl(var(--color-border) / 0.4);
+  cursor: default;
+  transition: background var(--duration-fast), box-shadow var(--duration-fast), transform 0.1s ease;
+  position: relative;
+  min-height: 76px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.huangli-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.huangli-cell:nth-child(7n+1) .huangli-cell-date,
+.huangli-cell:nth-child(7n) .huangli-cell-date {
+  color: hsl(0, 60%, 55%);
+}
+
+.huangli-cell.has-data {
+  cursor: pointer;
+}
+
+.huangli-cell.has-data:hover {
+  background: hsl(var(--color-bg-hover));
+}
+
+.huangli-cell.has-data:active {
+  transform: scale(0.94);
+  background: hsl(var(--color-bg-hover) / 0.8);
+}
+
+.huangli-cell.active {
+  background: hsl(var(--color-accent) / 0.14);
+  box-shadow: inset 0 0 0 2px hsl(var(--color-accent) / 0.5);
+}
+
+.huangli-cell.has-data:focus-visible {
+  outline: 2px solid hsl(var(--color-accent));
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.huangli-cell.highlighted::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(var(--color-accent));
+}
+
+/* 筛选模式下不适用该活动的日期弱化显示 */
+.huangli-cell.dimmed {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+.huangli-cell-date {
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-primary));
+  line-height: 1.2;
+}
+
+.huangli-cell-lunar {
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-muted));
+  line-height: 1.2;
+}
+
+.huangli-cell-badge {
+  font-size: var(--text-sm);
+  padding: 0 6px;
+  border-radius: 4px;
+  line-height: 1.5;
+  margin-top: 2px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Level colors */
+.huangli-cell.level-吉 .huangli-cell-badge {
+  background: hsl(var(--color-huangli-ji) / 0.15);
+  color: hsl(var(--color-huangli-ji));
+}
+
+.huangli-cell.level-凶 .huangli-cell-badge {
+  background: hsl(var(--color-huangli-xiong) / 0.15);
+  color: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-cell.level-平 .huangli-cell-badge {
+  background: hsl(var(--color-huangli-ping) / 0.15);
+  color: hsl(var(--color-huangli-ping));
+}
+
+/* ── Legend ── */
+.huangli-legend {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  padding: 0 var(--space-1);
+}
+
+.huangli-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-muted));
+}
+
+.huangli-legend-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.huangli-legend-item.level-吉 i {
+  background: hsl(var(--color-huangli-ji));
+}
+
+.huangli-legend-item.level-平 i {
+  background: hsl(var(--color-huangli-ping));
+}
+
+.huangli-legend-item.level-凶 i {
+  background: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-legend-item.highlighted i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(var(--color-accent));
+}
+
+/* ── Activity Filters ── */
+.huangli-filters {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-surface));
+}
+
+.huangli-filters-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-muted));
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+/* ── 分页签 ── */
+.huangli-filter-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--space-3);
+  border-bottom: 2px solid hsl(var(--color-border));
+}
+
+.huangli-filter-tab {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  background: transparent;
+  color: hsl(var(--color-text-muted));
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  text-align: center;
+}
+
+.huangli-filter-tab:hover {
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-filter-tab.active {
+  color: hsl(var(--color-accent));
+  border-bottom-color: hsl(var(--color-accent));
+  font-weight: var(--weight-semibold);
+}
+
+.huangli-filters-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.huangli-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: hsl(var(--color-text-secondary));
+  font-size: var(--text-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.huangli-filter-btn:hover {
+  border-color: hsl(var(--color-accent));
+  color: hsl(var(--color-accent));
+}
+
+.huangli-filter-btn.active {
+  background: hsl(var(--color-accent));
+  border-color: hsl(var(--color-accent));
+  color: white;
+}
+
+.huangli-filter-icon {
+  font-size: var(--text-base);
+}
+
+.huangli-filter-result {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-muted));
+}
+
+.huangli-filter-result strong {
+  color: hsl(var(--color-accent));
+}
+
+/* ── Day Detail ── */
+.huangli-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: linear-gradient(135deg, hsl(var(--color-bg-hover)), hsl(var(--color-bg-surface)));
+  border-bottom: 1px solid hsl(var(--color-border));
+}
+
+.huangli-result-activity {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-result-date {
+  font-size: var(--text-base);
+  color: hsl(var(--color-text-muted));
+}
+
+.huangli-result-auspicious {
+  padding: var(--space-4);
+  border-top: 1px solid hsl(var(--color-border) / 0.5);
+}
+
+.huangli-result-auspicious h4 {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+  margin: 0 0 var(--space-3);
+}
+
+/* ── 吉日推荐列表 ── */
+.huangli-auspicious-list {
+  margin: var(--space-3) 0;
+  padding: var(--space-4);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-surface));
+}
+
+.huangli-auspicious-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+  margin: 0 0 var(--space-3);
+}
+
+.huangli-auspicious-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.huangli-auspicious-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: hsl(var(--color-text-secondary));
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+  min-width: 60px;
+}
+
+.huangli-auspicious-card:hover {
+  border-color: hsl(var(--color-accent) / 0.5);
+  background: hsl(var(--color-accent-subtle) / 0.08);
+}
+
+.huangli-auspicious-card.active {
+  border-color: hsl(var(--color-accent));
+  background: hsl(var(--color-accent-subtle) / 0.15);
+  box-shadow: inset 0 0 0 1px hsl(var(--color-accent) / 0.3);
+}
+
+.huangli-auspicious-rank {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1px 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: white;
+  background: hsl(var(--color-accent));
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.huangli-auspicious-date {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+  line-height: 1.2;
+}
+
+.huangli-auspicious-card.active .huangli-auspicious-date {
+  color: hsl(var(--color-accent));
+}
+
+.huangli-auspicious-weekday {
+  font-size: var(--text-xs);
+  color: hsl(var(--color-text-muted));
+}
+
+.huangli-auspicious-level {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0 6px;
+  border-radius: 3px;
+  margin-top: 2px;
+}
+
+.huangli-auspicious-level.level-吉 {
+  color: hsl(var(--color-huangli-ji));
+  background: hsl(var(--color-huangli-ji) / 0.12);
+}
+
+.huangli-auspicious-level.level-平 {
+  color: hsl(var(--color-huangli-ping));
+  background: hsl(var(--color-huangli-ping) / 0.12);
+}
+
+.huangli-auspicious-level.level-凶 {
+  color: hsl(var(--color-huangli-xiong));
+  background: hsl(var(--color-huangli-xiong) / 0.12);
+}
+
+/* ── 择吉分析 ── */
+.huangli-analysis {
+  margin: var(--space-3) 0;
+  padding: var(--space-4);
+  border: 1px solid hsl(var(--color-accent) / 0.25);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-accent-subtle) / 0.06);
+}
+
+.huangli-analysis-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-accent));
+  margin: 0 0 var(--space-2);
+}
+
+.huangli-analysis-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+  line-height: 1.8;
+}
+
+.huangli-analysis-row.caution {
+  color: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-analysis-label {
+  font-weight: var(--weight-bold);
+  color: hsl(var(--color-text-muted));
+  min-width: 36px;
+  flex-shrink: 0;
+}
+
+.huangli-analysis-row.caution .huangli-analysis-label {
+  color: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-analysis-value {
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-analysis-row.caution .huangli-analysis-value {
+  color: hsl(var(--color-huangli-xiong) / 0.9);
+}
+
+.huangli-result-summary {
+  font-size: var(--text-base);
+  color: hsl(var(--color-text-secondary));
+}
+
+.huangli-result-month-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.huangli-result-month-label {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+  min-width: 90px;
+  text-align: center;
+}
+
+.huangli-auspicious-empty {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  font-size: var(--text-base);
+  color: hsl(var(--color-text-muted));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  animation: huangli-fade-in 0.3s ease-out;
+}
+
+.huangli-auspicious-empty-icon {
+  font-size: 48px;
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.huangli-auspicious-empty-text {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-secondary));
+}
+
+.huangli-auspicious-empty-hint {
+  font-size: var(--text-sm);
+  color: hsl(var(--color-text-muted));
+}
+
+@keyframes huangli-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.huangli-detail {
+  margin-top: var(--space-4);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-surface));
+  overflow: hidden;
+}
+
+.huangli-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: linear-gradient(135deg, hsl(var(--color-bg-hover)), hsl(var(--color-bg-surface)));
+  border-bottom: 1px solid hsl(var(--color-border));
+}
+
+.huangli-detail-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.huangli-detail-solar {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+}
+
+.huangli-detail-lunar {
+  font-size: var(--text-base);
+  color: hsl(var(--color-text-muted));
+  margin-top: 2px;
+}
+
+.huangli-detail-level-badge {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+}
+
+.huangli-detail-level-badge.level-吉 {
+  background: hsl(var(--color-huangli-ji) / 0.15);
+  color: hsl(var(--color-huangli-ji));
+}
+
+.huangli-detail-level-badge.level-凶 {
+  background: hsl(var(--color-huangli-xiong) / 0.15);
+  color: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-detail-level-badge.level-平 {
+  background: hsl(var(--color-huangli-ping) / 0.15);
+  color: hsl(var(--color-huangli-ping));
+}
+
+/* ── GanZhi info ── */
+.huangli-detail-ganzhi {
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+}
+
+.huangli-ganzhi-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.huangli-ganzhi-label {
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-muted));
+  min-width: 40px;
+}
+
+.huangli-ganzhi-value {
+  color: hsl(var(--color-text-primary));
+}
+
+/* ── Yi / Ji ── */
+.huangli-detail-yiji {
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+}
+
+.huangli-yi-title, .huangli-ji-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  margin: 0 0 var(--space-2);
+}
+
+.huangli-yi-title {
+  color: hsl(var(--color-huangli-ji));
+}
+
+.huangli-ji-title {
+  color: hsl(var(--color-huangli-xiong));
+}
+
+.huangli-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.huangli-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.huangli-tag.yi {
+  background: hsl(var(--color-huangli-ji) / 0.08);
+  color: hsl(var(--color-huangli-ji));
+  border: 1px solid hsl(var(--color-huangli-ji) / 0.2);
+}
+
+.huangli-tag.ji {
+  background: hsl(var(--color-huangli-xiong) / 0.08);
+  color: hsl(var(--color-huangli-xiong));
+  border: 1px solid hsl(var(--color-huangli-xiong) / 0.2);
+}
+
+.huangli-no-data {
+  font-size: var(--text-base);
+  color: hsl(var(--color-text-muted));
+}
+
+/* ── Gods ── */
+.huangli-detail-gods {
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+}
+
+.huangli-gods-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.huangli-gods-label {
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-muted));
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.huangli-gods-value {
+  color: hsl(var(--color-text-secondary));
+}
+
+/* ── Extras ── */
+.huangli-detail-extras {
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+}
+
+.huangli-extras-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.huangli-extras-label {
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-muted));
+  min-width: 68px;
+  flex-shrink: 0;
+}
+
+.huangli-extras-value {
+  color: hsl(var(--color-text-secondary));
+  flex: 1;
+}
+
+/* ── Hour Luck ── */
+.huangli-detail-hours {
+  padding: var(--space-4);
+}
+
+.huangli-hours-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: hsl(var(--color-text-primary));
+  margin: 0 0 var(--space-3);
+}
+
+.huangli-hours-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.huangli-hour-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-2) 4px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all var(--duration-fast);
+}
+
+.huangli-hour-cell.lucky {
+  background: hsl(var(--color-huangli-ji) / 0.08);
+  border: 1px solid hsl(var(--color-huangli-ji) / 0.15);
+}
+
+.huangli-hour-cell.unlucky {
+  background: hsl(var(--color-huangli-xiong) / 0.05);
+  border: 1px solid hsl(var(--color-huangli-xiong) / 0.1);
+}
+
+.huangli-hour-name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: hsl(var(--color-text-secondary));
+}
+
+.huangli-hour-ganzhi {
+  font-size: var(--text-xs);
+  color: hsl(var(--color-text-muted));
+  margin: 2px 0;
+}
+
+.huangli-hour-badge {
+  font-size: var(--text-xs);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: var(--weight-semibold);
+}
+
+.huangli-hour-cell.lucky .huangli-hour-badge {
+  color: hsl(var(--color-huangli-ji));
+}
+
+.huangli-hour-cell.unlucky .huangli-hour-badge {
+  color: hsl(var(--color-huangli-xiong));
+}
+
+/* ── Focus / Disabled 交互状态补全 ── */
+.huangli-nav-btn:focus-visible,
+.huangli-today-btn:focus-visible,
+.huangli-filter-tab:focus-visible,
+.huangli-filter-btn:focus-visible,
+.huangli-auspicious-card:focus-visible {
+  outline: 2px solid hsl(var(--color-accent));
+  outline-offset: 2px;
+}
+
+.huangli-auspicious-card:focus-visible {
+  outline-offset: 1px;
+}
+
+/* ── Responsive ── */
+/* 平板断点：日历单元格适度缩减 */
+@media (max-width: 768px) {
+  /* 黄历排盘结果固定宽度改为自适应，避免横向溢出 */
+  .feature-layout.bottom .feature-result:has(.huangli-calendar) > .feature-bazi,
+  .feature-layout.bottom .feature-result:has(.huangli-result-header) > .feature-bazi,
+  .feature-layout.bottom .feature-result:has(.huangli-calendar) > .feature-bazi > .bazi-form-card,
+  .feature-layout.bottom .feature-result:has(.huangli-result-header) > .feature-bazi > .bazi-form-card {
+    width: min(100%, 752px);
+    max-width: 100%;
+  }
+
+  .huangli-panel {
+    padding: var(--space-3);
+  }
+
+  .huangli-header {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .huangli-filter-select-wrapper {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+
+  .huangli-month-year {
+    font-size: var(--text-base);
+  }
+
+  .huangli-cell {
+    min-height: 68px;
+    padding: 4px 1px;
+  }
+
+  .huangli-cell-date {
+    font-size: var(--text-base);
+  }
+
+  .huangli-cell-lunar {
+    font-size: 12px;
+  }
+
+  .huangli-cell-badge {
+    font-size: 12px;
+  }
+
+  .huangli-detail-yiji {
+    grid-template-columns: 1fr;
+  }
+
+  .huangli-detail-ganzhi {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .huangli-hours-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .huangli-result-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .huangli-person-picker {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .huangli-person-selected {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .huangli-person-ts-info {
+    border-left: none;
+    border-top: 1px solid hsl(142 60% 40% / 0.15);
+    padding: var(--space-2) 0 0;
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+/* 手机断点：紧凑布局 */
+@media (max-width: 480px) {
+  .huangli-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .huangli-month-title {
+    min-width: 120px;
+  }
+
+  .huangli-today-btn {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .huangli-filter-select-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .huangli-filter-select-label {
+    font-size: var(--text-xs);
+  }
+
+  .huangli-filter-select {
+    min-width: 120px;
+    max-width: 100%;
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .huangli-filter-confirm-btn {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+    align-self: flex-end;
+  }
+
+  .huangli-cell {
+    min-height: 56px;
+    padding: 3px 1px;
+  }
+
+  .huangli-cell-date {
+    font-size: var(--text-sm);
+  }
+
+  .huangli-cell-lunar {
+    font-size: 10px;
+  }
+
+  .huangli-cell-badge {
+    font-size: 10px;
+  }
+
+  .huangli-auspicious-card {
+    min-width: 52px;
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .huangli-auspicious-date {
+    font-size: var(--text-base);
+  }
+
+  .huangli-hours-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .huangli-legend {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .huangli-person-archive-btn,
+  .huangli-person-manual-btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .huangli-person-selected-name {
+    font-size: var(--text-sm);
+  }
+}

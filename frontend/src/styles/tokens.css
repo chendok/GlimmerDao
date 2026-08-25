@@ -1,0 +1,221 @@
+/* =========================================
+   微光问道 — Design Tokens (CSS Variables)
+   ========================================= */
+
+/* ── Dark theme (default) ── */
+:root {
+  /* Colors */
+  --color-bg-primary: 0 0% 0%;
+  --color-bg-surface: 260 3% 12%;
+  --color-bg-elevated: 260 3% 16%;
+  --color-bg-input: 260 3% 14%;
+  --color-bg-hover: 260 3% 20%;
+  --color-bg-active: 250 40% 18%;
+  --color-bg-secondary: 260 3% 14%;
+  --color-shadow: 260 10% 4%;
+
+  --color-text-primary: 0 0% 90%;
+  --color-text-secondary: 260 4% 65%;
+  --color-text-muted: 260 4% 48%;
+
+  --color-accent: 250 70% 68%;
+  --color-accent-hover: 250 70% 75%;
+  --color-accent-subtle: 250 50% 44%;
+
+  --color-google-blue: 217 89% 61%;
+  --color-google-red: 4 89% 58%;
+  --color-google-yellow: 45 100% 51%;
+  --color-google-green: 122 39% 49%;
+
+  --color-gemini-gradient-start: 250 70% 68%;
+  --color-gemini-gradient-end: 200 80% 55%;
+
+  --color-border: 260 3% 22%;
+  --color-border-light: 260 3% 18%;
+  --color-border-input: 260 3% 26%;
+
+  --color-error: 0 80% 60%;
+  --color-error-bg: 0 40% 12%;
+  --color-success: 140 60% 50%;
+
+  /* Ziwei colors */
+  --color-ziwei-ji: 140 50% 65%;
+  --color-ziwei-sha: 10 60% 65%;
+  --color-ziwei-fu: 210 60% 60%;
+  --color-ziwei-red: 10 70% 55%;
+  --color-ziwei-green: 140 50% 65%;
+  --color-ziwei-blue: 210 60% 60%;
+  --color-ziwei-yellow: 45 70% 60%;
+  --color-ziwei-white: 0 0% 90%;
+
+  /* Huangli (黄道择吉) 吉凶等级色 — 吉(绿)/平(橙黄)/凶(红) */
+  --color-huangli-ji: 140 60% 50%;
+  --color-huangli-ping: 40 70% 55%;
+  --color-huangli-xiong: 0 70% 58%;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Google Sans', 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Google Sans Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-relaxed: 1.75;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-extra-slow: 800ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --sidebar-width: 155px;
+  --header-height: 56px;
+  --chat-max-width: 768px;
+
+  /* Safe-area insets（刘海屏 / 底部指示条适配） */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+
+  /* Z-index */
+  --z-sidebar: 100;
+  --z-dropdown: 200;
+  --z-toast: 300;
+}
+
+/* ── Light theme — 暖米白护眼配色（参考 Notion / Linear 浅色，降低冷白光 + 冷蓝紫的刺激） ── */
+.light {
+  /* Background — 主背景改为暖米白，surface 略提亮形成柔和层次，避免白纸般刺眼 */
+  --color-bg-primary: 40 20% 95%;       /* 暖调米白（H=40 偏橙黄，不冷不蓝） */
+  --color-bg-surface: 48 30% 98%;       /* 更淡更暖的米白作卡片/侧栏 */
+  --color-bg-elevated: 40 35% 99%;      /* 浮层最亮但仍带暖调 */
+  --color-bg-input: 0 0% 100%;          /* 输入框保持纯白，便于聚焦识别 */
+  --color-bg-hover: 40 15% 91%;         /* hover 略暗，柔和无刺激 */
+  --color-bg-active: 265 30% 93%;       /* active 用暖紫淡底，非冷蓝紫 */
+  --color-bg-secondary: 40 18% 92%;     /* 次级背景：列表、分隔区 */
+  --color-shadow: 35 20% 35%;           /* 阴影色调变暖，冷蓝变棕灰 */
+
+  /* Text — 正文改为深暖灰（非纯黑），次色/辅助色同步降对比，WCAG 仍约 11:1 / 7:1 / 5:1 */
+  --color-text-primary: 35 12% 18%;     /* 深暖灰（H=35 暖调），接近墨色不刺眼 */
+  --color-text-secondary: 30 8% 38%;    /* 中暖灰，次要文字 */
+  --color-text-muted: 30 6% 52%;        /* 浅暖灰，辅助文字 */
+
+  /* Accent — 强调色从冷蓝紫(250)改暖紫(268)，同时适度降饱和，避免白底上刺眼 */
+  --color-accent: 268 50% 55%;          /* 暖紫 (紫罗兰调，Notion-style accent) */
+  --color-accent-hover: 268 55% 48%;    /* hover 稍深 */
+  --color-accent-subtle: 268 35% 78%;   /* 柔和装饰线、角标 */
+
+  /* Border — 暖灰边框（非冷蓝灰220），与米白背景天然协调 */
+  --color-border: 35 10% 83%;           /* 主边框：暖灰 */
+  --color-border-light: 40 15% 90%;     /* 次边框：淡暖灰 */
+  --color-border-input: 35 10% 76%;     /* 输入框边框：略加深易识别 */
+
+  --color-error-bg: 6 55% 96%;          /* 错误背景：暖调粉红，不扎眼 */
+
+  /* Ziwei colors — 暖色微调保留区分度 */
+  --color-ziwei-ji: 145 45% 42%;
+  --color-ziwei-sha: 12 55% 50%;
+  --color-ziwei-fu: 205 55% 48%;
+  --color-ziwei-red: 12 65% 50%;
+  --color-ziwei-green: 145 45% 42%;
+  --color-ziwei-blue: 205 55% 48%;
+  --color-ziwei-yellow: 40 65% 50%;
+  --color-ziwei-white: 35 12% 18%;
+
+  /* Huangli — 同步微降饱和，不刺眼 */
+  --color-huangli-ji: 140 50% 38%;
+  --color-huangli-ping: 36 65% 46%;
+  --color-huangli-xiong: 6 65% 50%;
+
+  /* Shadow — 冷黑透明 rgba 改为暖棕灰，更贴合米白底色 */
+  --shadow-sm: 0 1px 2px rgba(88, 72, 50, 0.06);
+  --shadow-md: 0 2px 10px rgba(88, 72, 50, 0.08);
+  --shadow-lg: 0 6px 24px rgba(88, 72, 50, 0.10);
+}
+
+/* =========================================
+   全局移动端 / WebView 适配基础规则
+   ========================================= */
+
+/* 安全区域通用工具类：供固定定位的顶栏 / 底栏使用 */
+.safe-top {
+  padding-top: var(--safe-area-top);
+}
+.safe-bottom {
+  padding-bottom: var(--safe-area-bottom);
+}
+
+/* 触控优化：去除移动端 tap 高亮与延迟，改善 WebView 点击手感 */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* 移动端滚动性能优化：惯性滚动 + 硬件加速 */
+.scrollable,
+.main-content,
+.sidebar,
+.feature-content-area {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  transform: translateZ(0);
+  will-change: scroll-position;
+}
+
+/* 防止横向滚动溢出（全局兜底） */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* 让滚动容器在 WebView 中流畅滚动 */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    scroll-behavior: smooth;
+  }
+}

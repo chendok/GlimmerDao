@@ -1,0 +1,77 @@
+/* 统一登录提示卡片 —— 用于所有内容锁定区域，保证视觉与交互一致 */
+.login-prompt-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4, 16px);
+  padding: var(--space-12, 48px) var(--space-4, 16px);
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  color: hsl(var(--color-text-muted, 0 0% 60%));
+  border-radius: var(--radius-md, 8px);
+  transition: background var(--duration-normal, 0.2s) var(--ease-out, ease);
+  outline: none;
+}
+
+.login-prompt-card:hover,
+.login-prompt-card:focus-visible {
+  background: hsl(var(--color-accent, 210 90% 50%) / 0.06);
+}
+
+.login-prompt-card:focus-visible {
+  box-shadow: 0 0 0 2px hsl(var(--color-accent, 210 90% 50%) / 0.4);
+}
+
+.login-prompt-icon {
+  color: hsl(var(--color-accent, 210 90% 50%) / 0.7);
+  flex-shrink: 0;
+}
+
+.login-prompt-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: hsl(var(--color-text-secondary, 0 0% 70%));
+}
+
+.login-prompt-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  margin-top: var(--space-1, 4px);
+}
+
+.login-prompt-btn {
+  padding: 8px 22px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--duration-fast, 0.15s) ease, border-color var(--duration-fast, 0.15s) ease, opacity var(--duration-fast, 0.15s) ease;
+  line-height: 1.4;
+}
+
+.login-prompt-btn-primary {
+  background: hsl(var(--color-accent, 210 90% 50%));
+  color: hsl(0 0% 100%);
+  border-color: hsl(var(--color-accent, 210 90% 50%));
+}
+
+.login-prompt-btn-primary:hover {
+  background: hsl(var(--color-accent-hover, 210 90% 45%));
+  border-color: hsl(var(--color-accent-hover, 210 90% 45%));
+}
+
+.login-prompt-btn-secondary {
+  background: transparent;
+  color: hsl(var(--color-text-secondary, 0 0% 70%));
+  border-color: hsl(var(--color-border, 0 0% 25%));
+}
+
+.login-prompt-btn-secondary:hover {
+  background: hsl(var(--color-text-muted, 0 0% 60%) / 0.1);
+  border-color: hsl(var(--color-text-muted, 0 0% 60%) / 0.4);
+}

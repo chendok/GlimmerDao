@@ -1,0 +1,36 @@
+fastapi==0.115.0
+uvicorn[standard]==0.21.1
+langgraph==0.2.5
+langchain==0.2.15
+langchain-openai==0.1.21
+langchain-anthropic==0.1.21
+langchain-community==0.2.15
+python-dotenv==1.0.0
+pydantic==2.9.0
+sqlalchemy==2.0.35
+aiosqlite==0.20.0
+sse-starlette==2.1.0
+httpx==0.27.0
+pytest==8.3.0
+pytest-asyncio==0.24.0
+bcrypt==4.2.0
+python-jose[cryptography]==3.3.0
+tencentcloud-sdk-python-sms>=3.0
+aiosmtplib>=3.0
+sherpa-onnx>=1.0.0
+# 麻衣神相图像缩略图生成
+Pillow>=10.0.0
+# MCP 服务协议集成（可选，启用后可在 mcp_servers.yaml 配置外部工具服务）
+mcp>=1.0.0
+# 知识库文档解析
+pdfplumber>=0.10.0
+python-docx>=1.0.0
+markdown>=3.5.0
+openpyxl>=3.1.0
+ebooklib>=0.18
+jieba>=0.42.1
+python-pptx>=0.6.21
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+# 黄历择吉核心依赖（基于《钦定协纪辨方书》的农历/黄历计算库）
+cnlunar>=0.1.8

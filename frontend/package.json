@@ -1,0 +1,38 @@
+{
+  "name": "wendao-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.21",
+    "d3": "^7.9.0",
+    "html2canvas": "^1.4.1",
+    "iching-shifa": "^1.8.0",
+    "iztro": "^2.5.8",
+    "jspdf": "^4.2.1",
+    "lunar-javascript": "^1.7.7",
+    "markmap-lib": "^0.18.12",
+    "markmap-view": "^0.18.12",
+    "mingyu-core": "^0.1.23",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^6.0.3",
+    "typescript": "^5.5.3",
+    "vite": "^8.1.0"
+  }
+}
