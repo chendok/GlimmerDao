@@ -95,6 +95,216 @@ function TableRow({ label, children }: { label: string; children: React.ReactNod
   )
 }
 
+// ── 命盘宽表（本命四柱 + 可选动态柱，PC 与手机共用）──
+function BaziTable({ columns, strengthLevel }: { columns: BaziColumn[]; strengthLevel: string }) {
+  return (
+    <div className="bazi-table">
+      {/* 主星 */}
+      <TableRow label="主星">
+        {columns.map((col) => (
+          <div key={col.key} className={`bazi-cell ${col.isDynamic ? 'dynamic dimension-' + col.dimension : ''}`}>
+            <div className="bazi-cell-header">{col.label}</div>
+            <div className="bazi-cell-body">
+              <span className="bazi-zhuxing-item">
+                {col.key === 'day' ? '日主' : (col.pillar.zhuXing || '-')}
+              </span>
+              {col.key === 'day' && (
+                <span className={`bazi-strength-badge ${strengthLevel === '身强' ? 'strong' : strengthLevel === '中和' ? 'neutral' : 'weak'}`}>
+                  {strengthLevel}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </TableRow>
+
+      {/* 天干行（带五行） */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">天干</div>
+        <div className="bazi-table-cells">
+          <div className="bazi-gan-row">
+            {columns.map((col) => (
+              <GZWithWuxing key={col.key} char={col.pillar.gan} type="gan" />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 地支行（带五行） */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">地支</div>
+        <div className="bazi-table-cells">
+          <div className="bazi-gan-row">
+            {columns.map((col) => (
+              <div key={col.key} className="bazi-zhi-wrapper">
+                <GZWithWuxing char={col.pillar.zhi} type="zhi" />
+                {col.key === 'month' && (
+                  <span className="bazi-yueling-tag">月令</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 藏干（带五行） */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">藏干</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-canggan-cell">
+              {(col.pillar.zangGan || []).map((cg, j) => (
+                <CangGanItem key={j} char={cg} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 副星 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">副星</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-fuxing-cell">
+              {(col.pillar.fuXing || []).map((fx, j) => (
+                <span key={j} className="bazi-fuxing-item">{fx}</span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 星运 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">星运</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-simple-cell">
+              <span className="bazi-xingyun">{col.pillar.xingYun}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 自坐 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">自坐</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-zizuo-cell">
+              <span className="bazi-zizuo">{col.pillar.zizuo}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 空亡 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">空亡</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-simple-cell">
+              <span className="bazi-kongwang">{(col.pillar.kongWang || []).join('') || '-'}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 纳音 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">纳音</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-simple-cell">
+              <span className="bazi-nayin">{col.pillar.naYin}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 神煞 */}
+      <div className="bazi-table-row">
+        <div className="bazi-table-label">神煞</div>
+        <div className="bazi-table-cells">
+          {columns.map((col) => (
+            <div key={col.key} className="bazi-shensha-cell">
+              {col.shenSha.length > 0
+                ? col.shenSha.map((ss, idx) => <span key={idx} className={shenShaClass(ss)}>{ss}</span>)
+                : <span className="shensha-empty">-</span>
+              }
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 时间维度文本行（大运/流年/流月/流日/流时，左标签 + 右文本描述）──
+function BaziDynamicTable({ columns }: { columns: BaziColumn[] }) {
+  const zangGanText = (col: BaziColumn) =>
+    (col.pillar.zangGan || []).length > 0 ? col.pillar.zangGan.join('') : '-'
+  const fuXingText = (col: BaziColumn) =>
+    (col.pillar.fuXing || []).length > 0 ? col.pillar.fuXing.join('、') : '-'
+  const shenShaText = (col: BaziColumn) =>
+    col.shenSha.length > 0 ? col.shenSha.join('、') : '无'
+
+  return (
+    <div className="bazi-dynamic-list">
+      {columns.map((col) => (
+        <div key={col.key} className="bazi-dynamic-item">
+          <div className={`bazi-dynamic-item-label dimension-${col.dimension}`}>
+            {col.label}
+          </div>
+          <div className="bazi-dynamic-item-desc">
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">主星</span>
+              <span className="bazi-zhuxing-item">{col.pillar.zhuXing || '-'}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">天干</span>
+              <span className="bazi-dyn-char" style={{ color: WU_XING_COLOR[GAN_WX[col.pillar.gan]] || '#999' }}>{col.pillar.gan}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">地支</span>
+              <span className="bazi-dyn-char" style={{ color: WU_XING_COLOR[ZHI_WX[col.pillar.zhi]] || '#999' }}>{col.pillar.zhi}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">藏干</span>
+              <span className="bazi-dyn-plain">{zangGanText(col)}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">副星</span>
+              <span className="bazi-dyn-plain">{fuXingText(col)}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">星运</span>
+              <span className="bazi-xingyun">{col.pillar.xingYun || '-'}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">自坐</span>
+              <span className="bazi-zizuo">{col.pillar.zizuo || '-'}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">空亡</span>
+              <span className="bazi-kongwang">{(col.pillar.kongWang || []).join('') || '-'}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">纳音</span>
+              <span className="bazi-nayin">{col.pillar.naYin || '-'}</span>
+            </span>
+            <span className="bazi-dyn-seg">
+              <span className="bazi-dyn-seg-k">神煞</span>
+              <span className="bazi-dyn-plain">{shenShaText(col)}</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // ── 神煞吉凶分类 ──
 const SHENSHA_JI = new Set([
   '天乙贵人', '太极贵人', '天德贵人', '月德贵人', '文昌贵人',
@@ -630,6 +840,14 @@ export default function BaziResultView({ result, onBack, saveStatus, onRetrySave
             </div>
           </div>
           <div className="bazi-card-actions" onClick={(e) => e.stopPropagation()}>
+            {/* 解盘报告按钮 - 位于展开/收缩按钮左侧 */}
+            <button
+              type="button"
+              className="bazi-toolbar-btn"
+              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
+            >
+              解盘报告
+            </button>
             <button
               type="button"
               className="bazi-expand-btn"
@@ -645,15 +863,6 @@ export default function BaziResultView({ result, onBack, saveStatus, onRetrySave
                   <path d="M12 5l7 7-7 7"/>
                 </svg>
               )}
-            </button>
-            {/* 解盘报告按钮 - 位于展开/收缩按钮下方 */}
-            <button
-              type="button"
-              className="bazi-toolbar-btn"
-              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
-              style={{ marginTop: '4px' }}
-            >
-              解盘报告
             </button>
           </div>
         </div>
@@ -686,148 +895,35 @@ export default function BaziResultView({ result, onBack, saveStatus, onRetrySave
 
         <div className={`bazi-card-content ${cardExpanded ? 'expanded' : 'collapsed'}`}>
             <div className="bazi-chart-content-wrapper">
-            <div className="bazi-table-section">
-            <div className="bazi-table">
-              {/* 主星 */}
-              <TableRow label="主星">
-                {columns.map((col) => (
-                  <div key={col.key} className={`bazi-cell ${col.isDynamic ? 'dynamic dimension-' + col.dimension : ''}`}>
-                    <div className="bazi-cell-header">{col.label}</div>
-                    <div className="bazi-cell-body">
-                      <span className="bazi-zhuxing-item">
-                        {col.key === 'day' ? '日主' : (col.pillar.zhuXing || '-')}
-                      </span>
-                      {col.key === 'day' && (
-                        <span className={`bazi-strength-badge ${strengthResult.level === '身强' ? 'strong' : strengthResult.level === '中和' ? 'neutral' : 'weak'}`}>
-                          {strengthResult.level}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </TableRow>
-
-              {/* 天干行（带五行） */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">天干</div>
-                <div className="bazi-table-cells">
-                  <div className="bazi-gan-row">
-                    {columns.map((col) => (
-                      <GZWithWuxing key={col.key} char={col.pillar.gan} type="gan" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 地支行（带五行） */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">地支</div>
-                <div className="bazi-table-cells">
-                  <div className="bazi-gan-row">
-                    {columns.map((col) => (
-                      <div key={col.key} className="bazi-zhi-wrapper">
-                        <GZWithWuxing char={col.pillar.zhi} type="zhi" />
-                        {col.key === 'month' && (
-                          <span className="bazi-yueling-tag">月令</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 藏干（带五行） */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">藏干</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-canggan-cell">
-                      {(col.pillar.zangGan || []).map((cg, j) => (
-                        <CangGanItem key={j} char={cg} />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 副星 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">副星</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-fuxing-cell">
-                      {(col.pillar.fuXing || []).map((fx, j) => (
-                        <span key={j} className="bazi-fuxing-item">{fx}</span>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 星运 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">星运</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-simple-cell">
-                      <span className="bazi-xingyun">{col.pillar.xingYun}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 自坐 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">自坐</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-zizuo-cell">
-                      <span className="bazi-zizuo">{col.pillar.zizuo}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 空亡 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">空亡</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-simple-cell">
-                      <span className="bazi-kongwang">{(col.pillar.kongWang || []).join('') || '-'}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 纳音 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">纳音</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-simple-cell">
-                      <span className="bazi-nayin">{col.pillar.naYin}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 神煞 */}
-              <div className="bazi-table-row">
-                <div className="bazi-table-label">神煞</div>
-                <div className="bazi-table-cells">
-                  {columns.map((col) => (
-                    <div key={col.key} className="bazi-shensha-cell">
-                      {col.shenSha.length > 0
-                        ? col.shenSha.map((ss, idx) => <span key={idx} className={shenShaClass(ss)}>{ss}</span>)
-                        : <span className="shensha-empty">-</span>
-                      }
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* 移动端：人名信息独立卡片（移动端 .bazi-card-title 隐藏，避免被左右按钮挤得每个字换行） */}
+            <div className="bazi-mobile-name-card">
+              <h2 className="bazi-name">
+                {result.name}
+                <button type="button" className="supplemental-info-icon" onClick={() => setShowSupplementalModal(true)} title="维护个人补充信息" aria-label="维护个人补充信息">✎</button>
+                <span className="bazi-gender-tag">{result.gender === '男' ? '乾造' : '坤造'}</span>
+              </h2>
+              <p className="bazi-desc">
+                出生日期 {result.solarDate} · 真太阳时 {result.trueSolarTimeStr}
+              </p>
+              <p className="bazi-pattern-desc">
+                格局 <span className="bazi-pattern-value">{patternName}</span>
+                · 日主 <span className={`bazi-strength-pill ${strengthResult.level === '身强' ? 'strong' : strengthResult.level === '中和' ? 'neutral' : 'weak'}`}>{strengthResult.level}</span>
+                · 命宫 <span className="bazi-pattern-value">{result.mingGong}</span>
+                · 身宫 <span className="bazi-pattern-value">{result.shenGong}</span>
+                · 胎元 <span className="bazi-pattern-value">{result.taiYuan}</span>
+              </p>
             </div>
-          </div>
+            {/* 本命四柱（表头 + 属性行横排，与 PC 版样式统一） */}
+            <div className="bazi-table-section">
+              <BaziTable columns={columns.filter(c => !c.isDynamic)} strengthLevel={strengthResult.level} />
+            </div>
+
+            {/* 时间维度（大运/流年/流月/流日/流时）：转置表（表头=属性，行=维度，从上到下 大运→流时） */}
+            {columns.filter(c => c.isDynamic).length > 0 && (
+              <div className="bazi-table-section bazi-dynamic-table-section">
+                <BaziDynamicTable columns={columns.filter(c => c.isDynamic).reverse()} />
+              </div>
+            )}
           <div className="bazi-time-dimensions">
             <TimeDimensionRow
               title="大运"

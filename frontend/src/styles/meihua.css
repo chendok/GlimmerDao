@@ -134,7 +134,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: hsl(var(--color-text-primary));
   font-weight: var(--weight-semibold);
   letter-spacing: 0.03em;
@@ -479,9 +479,27 @@
 @media (max-width: 768px) {
   /* 固定宽度卡片改为自适应，避免横向溢出 */
   .meihua-form-card,
-  .meihua-result-card {
+  .meihua-result-card,
+  .meihua-result-feature {
     width: min(100%, 472px);
     max-width: 100%;
+  }
+
+  /* 起卦方式切换组：填满表单宽度，按钮字号略缩小，缓解拥挤 */
+  .meihua-form-card .bazi-calendar-toggle {
+    width: 100%;
+  }
+
+  .meihua-form-card .bazi-calendar-toggle .bazi-calendar-btn {
+    font-size: var(--text-sm);
+    padding: var(--space-2);
+  }
+
+  /* 当前时间触发器缩小字号，保持层级协调 */
+  .meihua-method-panel .meihua-current-time {
+    font-size: var(--text-sm);
+    height: auto;
+    min-height: 72px;
   }
 
   .meihua-number-inputs {

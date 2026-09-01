@@ -67,6 +67,11 @@ html, body, #root {
   /* width 由 inline style 动态设置，支持拖拽调整 */
 }
 
+/* 移动端遮罩：默认隐藏，仅在移动端断点显示 */
+.sidebar-overlay-mobile {
+  display: none;
+}
+
 /* ── 拖拽手柄 ── */
 .sidebar-resize-handle {
   position: absolute;
@@ -305,12 +310,13 @@ html, body, #root {
 }
 
 .sidebar-section-label {
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   color: hsl(var(--color-text-muted) / 0.85);
   padding: var(--space-2) var(--space-3) var(--space-1);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -584,7 +590,7 @@ html, body, #root {
   flex-wrap: wrap;
   gap: 6px 10px;
   padding: 0 var(--space-3) 6px 32px;
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted));
   border-top: 1px dashed hsl(var(--color-border) / 0.5);
   margin-top: 2px;
@@ -675,7 +681,7 @@ html, body, #root {
 }
 
 .topic-icon {
-  font-size: 13px;
+  font-size: var(--text-sm);
   width: 22px;
   height: 22px;
   display: flex;
@@ -1039,8 +1045,8 @@ html, body, #root {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 85% !important;
-    max-width: 320px;
+    width: 60% !important;
+    max-width: 224px;
     z-index: var(--z-sidebar);
     box-shadow: var(--shadow-lg);
   }
@@ -1585,7 +1591,7 @@ html, body, #root {
   border-radius: var(--radius-pill);
   background: hsl(var(--color-bg-elevated));
   color: hsl(var(--color-text-secondary));
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: var(--font-sans);
   cursor: pointer;
   transition: background-color var(--duration-fast), border-color var(--duration-fast),
@@ -1645,6 +1651,7 @@ html, body, #root {
   font-size: var(--text-sm);
   color: hsl(var(--color-text-secondary));
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -1829,6 +1836,7 @@ html, body, #root {
   font-size: var(--text-sm);
   color: hsl(var(--color-text-secondary));
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -2467,6 +2475,7 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   background: hsl(var(--color-bg) / 0.85);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border: 3px dashed hsl(var(--color-accent));
   pointer-events: all;
@@ -2481,6 +2490,7 @@ html, body, #root {
   font-size: var(--text-lg);
   font-weight: 600;
   text-align: center;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -2567,7 +2577,7 @@ html, body, #root {
 }
 
 .image-thumb-progress {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-accent));
   font-weight: 600;
 }
@@ -2597,7 +2607,7 @@ html, body, #root {
 .image-thumb-name {
   max-width: 64px;
   margin-top: 2px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted));
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2664,6 +2674,7 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   background: hsl(0 0% 0% / 0.85);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   animation: preview-fade-in 0.2s ease;
   outline: none;
@@ -2683,6 +2694,7 @@ html, body, #root {
   position: relative;
   max-width: 92vw;
   max-height: 92vh;
+  max-height: 92dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2761,6 +2773,7 @@ html, body, #root {
   object-fit: contain;
   border-radius: var(--radius-md);
   box-shadow: 0 8px 32px hsl(0 0% 0% / 0.5);
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -2820,6 +2833,7 @@ html, body, #root {
   gap: 16px;
   font-size: var(--text-xs);
   color: hsl(0 0% 100% / 0.45);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -3372,6 +3386,7 @@ html, body, #root {
   overflow-x: hidden;
   height: 100%;
   max-height: 100vh;
+  max-height: 100dvh;
   position: relative;
   flex: 1;
   min-height: 0;
@@ -3477,6 +3492,7 @@ html, body, #root {
   font-size: clamp(0.7rem, 1.8vw, var(--text-sm));
   font-family: var(--font-sans);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: background var(--duration-fast), color var(--duration-fast);
 }
@@ -3589,6 +3605,7 @@ html, body, #root {
   font-size: clamp(0.7rem, 1.8vw, var(--text-sm));
   font-family: var(--font-sans);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: background var(--duration-fast), color var(--duration-fast);
   box-shadow: 0 -4px 24px hsl(0 0% 0% / 0.35);
@@ -3762,6 +3779,7 @@ html, body, #root {
   flex-direction: column;
   gap: var(--space-4);
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px hsl(var(--color-border-light));
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   animation: cardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -4004,6 +4022,7 @@ html, body, #root {
   font-family: var(--font-sans);
   cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4068,7 +4087,7 @@ html, body, #root {
   background: hsl(var(--color-bg-secondary));
   border-radius: var(--radius-lg);
   padding: var(--space-3);
-  margin: 0 var(--space-4) var(--space-4);
+  margin: 0 var(--space-6) var(--space-4);
   border: 1px solid hsl(var(--color-border) / 0.4);
   overflow: visible;
 }
@@ -4112,8 +4131,8 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   background: hsl(0 0% 0% / 0.7);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   animation: fadeIn var(--duration-fast) var(--ease-out);
   padding: var(--space-4);
 }
@@ -4363,6 +4382,7 @@ html, body, #root {
   align-items: center;
   gap: var(--space-2);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4432,6 +4452,7 @@ html, body, #root {
   font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-user-select: none;
   user-select: none;
   box-shadow: 0 1px 2px hsl(0 0% 0% / 0.05);
 }
@@ -4624,6 +4645,11 @@ html, body, #root {
     padding: var(--space-3) var(--space-3);
   }
 
+  /* 移动端信息面板与卡片内容（含保存行）左右对齐 */
+  .bazi-info-panel {
+    margin: 0 0 var(--space-4);
+  }
+
   .bazi-form-label {
     width: 64px;
     font-size: var(--text-base);
@@ -4806,6 +4832,7 @@ html, body, #root {
   font-family: var(--font-sans);
   line-height: 1.4;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: all var(--duration-fast) var(--ease-out);
   box-shadow: 0 1px 3px hsl(var(--color-shadow) / 0.1);
@@ -4925,7 +4952,7 @@ html, body, #root {
   color: hsl(var(--color-accent));
   background: hsl(var(--color-accent) / 0.08);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--text-sm);
   vertical-align: middle;
 }
 
@@ -4934,7 +4961,7 @@ html, body, #root {
 }
 
 .supplemental-info-modal {
-  width: min(620px, calc(100vw - 32px));
+  width: min(620px, calc(100% - 32px));
   padding: 0;
   overflow: hidden;
 }
@@ -4944,6 +4971,7 @@ div.report-modal.supplemental-info-modal {
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
   background: hsl(var(--color-bg-elevated));
   border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-xl, 16px);
@@ -4987,7 +5015,7 @@ div.report-modal.supplemental-info-modal {
   border-radius: var(--radius-md, 8px);
   background: transparent;
   color: hsl(var(--color-text-muted));
-  font-size: 22px;
+  font-size: var(--text-2xl);
   line-height: 1;
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease;
@@ -5415,6 +5443,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-weight: var(--weight-medium);
   font-family: var(--font-sans);
   line-height: 1.6;
+  margin-bottom: 4px;
   margin-left: 0;
 }
 
@@ -5438,6 +5467,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-family: var(--font-sans);
   line-height: 1.6;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: all var(--duration-fast) var(--ease-out);
   white-space: nowrap;
@@ -5486,8 +5516,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   animation: ci-fade-in 0.2s ease-out;
 }
 
@@ -5505,7 +5535,11 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 .chart-info-modal {
   width: min(90vw, 800px);
   height: 785px;
+  height: min(785px, 85vh);
+  height: min(785px, 85dvh);
   max-height: 85vh;
+  max-height: 85dvh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   background: hsl(var(--color-bg-elevated));
   border: 1px solid hsl(var(--color-border) / 0.5);
   border-radius: var(--radius-xl);
@@ -5557,6 +5591,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-weight: var(--weight-semibold);
   font-family: var(--font-sans);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -5591,6 +5626,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-weight: var(--weight-semibold);
   font-family: var(--font-sans);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -5835,7 +5871,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   display: inline-block;
   padding: 1px 6px;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   background: hsl(var(--color-bg-hover));
   border: 1px solid hsl(var(--color-border) / 0.3);
@@ -6005,6 +6041,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-weight: var(--weight-medium);
   font-family: var(--font-sans);
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -6277,12 +6314,12 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .ci-gong-star-status {
-  font-size: 10px;
+  font-size: var(--text-xs);
   opacity: 0.8;
 }
 
 .ci-gong-star-sihua {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: var(--weight-bold);
 }
 
@@ -6290,7 +6327,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2px var(--space-2);
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted));
 }
 
@@ -6428,8 +6465,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .bazi-table-label {
-  width: 56px;
-  min-width: 56px;
+  width: 68px;
+  min-width: 68px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6439,7 +6476,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   color: hsl(var(--color-text-muted));
   background: hsl(var(--color-bg-elevated) / 0.3);
   border-right: 1px solid hsl(var(--color-border) / 0.3);
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .bazi-table-cells {
@@ -6449,7 +6487,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .bazi-cell {
-  flex: 1;
+  flex: 1 0 72px;
+  min-width: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6545,6 +6584,96 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 .bazi-canggan-cell:last-child {
   border-right: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   移动端：命盘宽表横向可滚动（与 PC 版结构统一）
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 时间维度表（大运/流年等）放在主命盘下面，与主表间隔 */
+.bazi-dynamic-table-section {
+  margin-top: var(--space-4);
+}
+
+/* 时间维度文本列表（左标签 + 右文本描述） */
+.bazi-dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bazi-dynamic-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid hsl(var(--color-border) / 0.4);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-elevated) / 0.35);
+}
+
+/* 左侧维度标签：与年柱/月柱同字号，水平+垂直居中 */
+.bazi-dynamic-item-label {
+  flex-shrink: 0;
+  width: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  line-height: 1.4;
+}
+
+.bazi-dynamic-item-label.dimension-dayun { color: #008000; }
+.bazi-dynamic-item-label.dimension-liunian { color: #1E90FF; }
+.bazi-dynamic-item-label.dimension-liuyue { color: #FF8C00; }
+.bazi-dynamic-item-label.dimension-liuri { color: #008B8B; }
+.bazi-dynamic-item-label.dimension-liushi { color: #8B008B; }
+
+/* 右侧文本描述 */
+.bazi-dynamic-item-desc {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px var(--space-3);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: hsl(var(--color-text-primary));
+}
+
+.bazi-dyn-seg {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.bazi-dyn-seg-k {
+  font-size: 0.65rem;
+  color: hsl(var(--color-text-muted));
+  font-weight: var(--weight-medium);
+}
+
+.bazi-dyn-char {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+}
+
+.bazi-dyn-plain {
+  color: hsl(var(--color-text-primary));
+}
+
+@media (max-width: 768px) {
+  /* 移动端：本命四柱 + 时间维度表都不再自带滚动条，由外层 .bazi-card-content 统一处理横向溢出 */
+
+  /* 主表与时间维度表之间的间隔 */
+  .bazi-dynamic-table-section {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid hsl(var(--color-border) / 0.4);
+  }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -7344,8 +7473,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   justify-content: center;
   background: hsl(0 0% 0% / 0.6);
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   animation: fadeIn var(--duration-fast) var(--ease-out);
   padding: var(--space-4);
 }
@@ -7455,8 +7584,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   justify-content: center;
   background: hsl(0 0% 0% / 0.75);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   animation: fadeIn var(--duration-fast) var(--ease-out);
   padding: var(--space-4);
 }
@@ -7727,6 +7856,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   outline: none;
   touch-action: none;
   cursor: grab;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -7767,6 +7897,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   justify-content: center;
   font-size: var(--text-base);
   color: hsl(0 0% 50%);
+  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
@@ -7904,7 +8035,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .bazi-dt-picker-pillar .bazi-dt-column-label {
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 
 /* ── Responsive: datetime picker ── */
@@ -7912,6 +8043,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   .bazi-datetime-modal-picker {
     max-width: 100%;
     max-height: 92vh;
+    max-height: 92dvh;
     border-radius: var(--radius-2xl);
   }
 
@@ -8152,7 +8284,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   border-radius: var(--radius-sm);
   font-weight: var(--weight-medium);
   line-height: 1.4;
-  white-space: nowrap;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   background: hsl(var(--color-bg-elevated));
   color: hsl(var(--color-text-secondary));
   border: 1px solid hsl(var(--color-border) / 0.5);
@@ -8978,6 +9111,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   color: hsl(var(--color-accent));
   background: hsl(var(--color-bg-secondary));
   border-right: 1px solid hsl(var(--color-border) / 0.2);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -9048,6 +9182,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -9378,6 +9513,134 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   }
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   排盘信息综合卡片：移动端重排
+   - 顶部行：返回按钮 / 标题 / 展开按钮（保留三栏）
+   - 底部行：排盘信息 / 解盘报告（铺满宽度，并排）
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+  .bazi-card-header {
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+    min-height: 0;
+  }
+
+  /* 左侧：返回按钮 + 排盘信息按钮 改为单行横向 */
+  .bazi-left-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  /* 右侧：展开按钮 + 解盘报告 改为单行横向，与 PC 版结构一致 */
+  .bazi-card-actions {
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    gap: var(--space-1);
+  }
+
+  .bazi-card-actions .bazi-toolbar-btn,
+  .bazi-card-actions .bazi-expand-btn {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 移动端：把中间标题区域彻底隐藏，避免被左右按钮挤得每个字换行竖排
+     （人名/出生日期/格局等信息挪到下方 .bazi-mobile-name-card 完整展示） */
+  .bazi-card-title {
+    display: none;
+  }
+
+  /* 移动端：人名卡片（在命盘顶部，紧贴 bazi-card-content 内部） */
+  .bazi-mobile-name-card {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid hsl(var(--color-border) / 0.3);
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .bazi-mobile-name-card .bazi-name {
+    font-size: var(--text-base);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .bazi-mobile-name-card .bazi-desc,
+  .bazi-mobile-name-card .bazi-pattern-desc {
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    margin: 0;
+    color: hsl(var(--color-text-secondary));
+  }
+}
+
+/* 桌面端：隐藏移动端人名卡片（避免和 header 重复） */
+@media (min-width: 769px) {
+  .bazi-mobile-name-card {
+    display: none;
+  }
+}
+
+/* 极窄屏（≤480px）：把左/右操作区与标题并成更紧凑的布局 */
+@media (max-width: 480px) {
+  .bazi-info-card {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .bazi-name {
+    font-size: var(--text-md);
+  }
+
+  .bazi-desc,
+  .bazi-pattern-desc {
+    font-size: 0.7rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .bazi-pattern-desc {
+    /* 极窄屏隐藏描述中不重要的字段，节省宽度 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bazi-card-header {
+    padding: var(--space-2);
+  }
+
+  /* 标签列再窄一点，让单元格有更多空间 */
+  .bazi-table-label {
+    width: 36px;
+    min-width: 36px;
+    font-size: 0.7rem;
+    padding: var(--space-1) 0;
+  }
+
+  /* 单元格内边距收紧 */
+  .bazi-cell,
+  .bazi-gan-item,
+  .bazi-zhi-item,
+  .bazi-canggan-cell {
+    padding: var(--space-1) 2px;
+    font-size: var(--text-sm);
+  }
+
+  /* 五行小标签字号再缩 */
+  .bazi-gz-wx-row {
+    font-size: 0.55rem;
+  }
+}
+
+
+
 
 /* =========================================
    ArchiveManager 弹窗样式
@@ -9389,6 +9652,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   inset: 0;
   z-index: 1000;
   background: hsl(0 0% 0% / 0.6);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -9723,6 +9987,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .am-table thead {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -9739,6 +10004,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   background: hsl(var(--color-bg-surface));
   border-bottom: 1px solid hsl(var(--color-border));
   white-space: nowrap;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -10090,8 +10356,8 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 /* ── Toast 通知 ── */
 .am-toast-container {
   position: fixed;
-  top: var(--space-6);
-  right: var(--space-6);
+  top: calc(var(--space-6) + var(--safe-area-top));
+  right: calc(var(--space-6) + var(--safe-area-right));
   z-index: 1200;
   display: flex;
   flex-direction: column;
@@ -12165,6 +12431,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   border: 1px solid hsl(var(--color-border) / 0.5);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   transition: all 0.2s ease;
 }
@@ -12202,6 +12469,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   inset: 0;
   z-index: 1050;
   background: hsl(0 0% 0% / 0.65);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -12219,6 +12487,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   width: 92vw;
   max-width: 1100px;
   height: 88vh;
+  height: 88dvh;
   max-height: 880px;
   background: hsl(var(--color-bg-elevated));
   border: 1px solid hsl(var(--color-border));
@@ -12376,6 +12645,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-family: var(--font-sans);
   cursor: pointer;
   transition: all var(--duration-fast);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -12599,6 +12869,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   font-weight: var(--weight-medium);
   color: hsl(var(--color-text-muted));
   white-space: nowrap;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -12834,7 +13105,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-progress-stage {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: hsl(var(--color-text-primary));
   white-space: nowrap;
@@ -12843,7 +13114,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-progress-stats {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-tertiary));
 }
 
@@ -12882,7 +13153,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-progress-percent {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: hsl(var(--color-text-secondary));
   min-width: 36px;
@@ -12942,7 +13213,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .validation-title {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: hsl(var(--color-text-primary));
   flex: 1;
@@ -12959,7 +13230,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .validation-word-count {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-tertiary));
   background: hsl(var(--color-base-200) / 0.6);
   padding: 2px 8px;
@@ -12982,7 +13253,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .validation-score-label {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary));
   width: 80px;
   flex-shrink: 0;
@@ -13015,7 +13286,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .validation-score-value {
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: hsl(var(--color-text-tertiary));
   width: 32px;
@@ -13034,12 +13305,12 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   display: flex;
   align-items: flex-start;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   padding: 3px 0;
 }
 
 .validation-error-severity {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 600;
   padding: 1px 5px;
   border-radius: 3px;
@@ -13068,14 +13339,14 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .validation-error-more {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-tertiary));
   padding-left: 4px;
 }
 
 .validation-failed-message {
   margin-top: 6px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-warning));
   padding: 6px 10px;
   background: hsl(var(--color-warning) / 0.08);
@@ -13097,9 +13368,11 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   background: hsl(var(--color-accent) / 0.06);
   border: 1px solid hsl(var(--color-accent) / 0.15);
   border-radius: var(--radius-md);
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 5;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -13315,7 +13588,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   border: 1.5px solid hsl(var(--color-border));
   background: hsl(var(--color-surface));
@@ -13422,7 +13695,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 .thinking-content-stats {
   margin-left: auto;
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted) / 0.6);
 }
 .thinking-content-scroll {
@@ -13434,7 +13707,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 .thinking-content-text {
   margin: 0;
   font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
-  font-size: 11px;
+  font-size: var(--text-xs);
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
@@ -13501,12 +13774,12 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   color: hsl(var(--color-text-muted));
 }
 .section-progress-retries {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-warning));
   flex-shrink: 0;
 }
 .section-progress-words {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted));
   flex-shrink: 0;
 }
@@ -13860,9 +14133,11 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   padding: var(--space-2) var(--space-5);
   border-bottom: 1px solid hsl(var(--color-border) / 0.3);
   background: hsl(var(--color-bg-surface) / 0.5);
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 5;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -14644,9 +14919,12 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 @media (max-width: 480px) {
   .report-modal {
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     height: 100vh;
+    height: 100dvh;
     border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .report-markdown-body {
@@ -15019,7 +15297,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   background: hsl(var(--color-bg-hover));
   color: hsl(var(--color-text-secondary));
   border-radius: var(--radius-pill);
-  font-size: 10px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
 }
 
@@ -15044,7 +15322,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   padding: 1px var(--space-2);
   border-radius: var(--radius-pill);
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 500;
   background: hsl(220 14% 96%);
   color: hsl(var(--color-text-muted));
@@ -15436,7 +15714,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 /* ── Toast 提示 ── */
 .ak-toast {
   position: fixed;
-  bottom: var(--space-6);
+  bottom: calc(var(--space-6) + var(--safe-area-bottom));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -15501,6 +15779,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   justify-content: center;
   background: hsl(var(--color-bg-overlay, 220 20% 10%) / 0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   animation: confirm-dialog-fade-in 0.2s ease;
 }
@@ -15662,6 +15941,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   justify-content: center;
   background: hsl(var(--color-bg-overlay, 220 20% 10%) / 0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   animation: confirm-dialog-fade-in 0.2s ease;
 }
@@ -15973,13 +16253,29 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   display: flex;
   flex-direction: column;
   width: 92vw;
-  max-width: 1280px;
+  max-width: 1100px;
   height: 88vh;
+  height: 88dvh;
   max-height: 860px;
   background: hsl(var(--color-bg-elevated));
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(60, 40, 20, 0.18);
   overflow: hidden;
+}
+
+/* ── 空态：无内容时收缩弹窗高度，避免大片空白 ── */
+.report-modal-v2--empty {
+  height: auto;
+  max-height: 88vh;
+  max-height: 88dvh;
+}
+
+.report-modal-v2--empty .report-v2-body {
+  flex: none;
+}
+
+.report-modal-v2--empty .report-v2-content {
+  display: none;
 }
 
 /* ── 头部（固定） ── */
@@ -15999,14 +16295,14 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-title {
-  font-size: 18px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: hsl(var(--color-text-primary));
   margin: 0;
 }
 
 .report-v2-subtitle {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16032,29 +16328,30 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  order: 2;
 }
 
 /* ── 左侧配置栏 ── */
 .report-v2-sidebar {
-  width: 260px;
+  width: 240px;
   flex-shrink: 0;
-  padding: 20px 16px;
+  padding: 16px 12px;
   border-right: 1px solid hsl(var(--color-border, 30 10% 90%));
   background: hsl(var(--color-bg-surface));
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .sidebar-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .sidebar-label {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: hsl(var(--color-text-secondary, 30 5% 50%));
   text-transform: uppercase;
@@ -16064,7 +16361,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 .sidebar-select {
   width: 100%;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: hsl(var(--color-text-primary));
   background: hsl(var(--color-bg-elevated));
   border: 1px solid hsl(var(--color-border, 30 10% 88%));
@@ -16085,7 +16382,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .sidebar-outline-count {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16111,6 +16408,15 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   height: auto;
   flex: 1;
   min-height: 0;
+  background: transparent;
+  border: none;
+}
+
+/* 侧边栏内大纲编辑器去掉外壳，让目录直接可见 */
+.sidebar-outline-body .outline-editor-header,
+.sidebar-outline-body .template-description,
+.sidebar-outline-body .outline-editor-hint {
+  display: none;
 }
 
 /* 侧边栏内大纲树在剩余空间内滚动，避免撑高整个 sidebar */
@@ -16139,7 +16445,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   background: hsl(var(--color-error-bg));
   border: 1px solid hsl(var(--color-error) / 0.3);
   border-radius: 8px;
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: hsl(var(--color-error));
   flex-shrink: 0;
 }
@@ -16165,13 +16471,13 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-progress-stage {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: hsl(var(--color-text-primary));
 }
 
 .report-v2-progress-stats {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16191,7 +16497,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-progress-percent {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: hsl(var(--color-accent, 270 40% 55%));
   min-width: 36px;
@@ -16219,6 +16525,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   justify-content: space-between;
   padding: 10px 14px;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -16226,7 +16533,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: hsl(var(--color-text-primary));
 }
@@ -16250,7 +16557,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   gap: 8px;
   padding: 6px 0;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
   border-bottom: 1px solid hsl(var(--color-border, 30 10% 92%));
 }
@@ -16281,7 +16588,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 .report-v2-section-retries,
 .report-v2-section-words {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 55%));
   flex-shrink: 0;
 }
@@ -16304,7 +16611,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 .report-v2-sections-hint {
   padding: 6px 0 4px;
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 55%));
 }
 
@@ -16314,6 +16621,32 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   overflow-y: auto;
   padding: 16px 24px;
   min-height: 0;
+}
+
+/* ── 空态占位提示（未生成报告时填充内容区，避免下方大片空白）── */
+.report-v2-empty-hint {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: hsl(var(--color-text-muted));
+  text-align: center;
+}
+
+.report-v2-empty-icon {
+  font-size: 48px;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.report-v2-empty-text {
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.75;
 }
 
 /* ── 思考阶段 ── */
@@ -16356,7 +16689,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 .report-v2-thinking-msg {
   flex: 1;
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16375,7 +16708,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-thinking-body pre {
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.6;
   color: hsl(var(--color-text-secondary, 30 5% 45%));
   white-space: pre-wrap;
@@ -16393,7 +16726,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   align-items: center;
   gap: 8px;
   padding: 8px 0;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16418,11 +16751,11 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-streaming-stats {
-  font-size: 11px;
+  font-size: var(--text-xs);
 }
 
 .report-v2-streaming-body {
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.8;
   color: hsl(var(--color-text-primary));
 }
@@ -16451,7 +16784,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-report-info {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-secondary, 30 5% 50%));
 }
 
@@ -16462,7 +16795,7 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 
 .report-v2-action-btn {
   padding: 4px 12px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   border: 1px solid hsl(var(--color-border, 30 10% 85%));
   border-radius: 6px;
   background: transparent;
@@ -16476,40 +16809,23 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 }
 
 .report-v2-report-body {
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.8;
   color: hsl(var(--color-text-primary));
 }
 
-/* ── 空态 ── */
-.report-v2-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 16px;
-  color: hsl(var(--color-text-secondary, 30 5% 60%));
-}
-
-.report-v2-empty-icon {
-  opacity: 0.3;
-}
-
-.report-v2-empty-text {
-  font-size: 14px;
-  margin: 0;
-}
-
-/* ── 固定底部操作栏 ── */
+/* ── 操作栏（置于弹窗顶部：标题下方、内容区上方，避免底部按钮被遮挡/挤出）── */
 .report-v2-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  border-top: 1px solid hsl(var(--color-border, 30 10% 90%));
+  border-bottom: 1px solid hsl(var(--color-border, 30 10% 90%));
   background: hsl(var(--color-bg-surface));
   flex-shrink: 0;
+  order: 1;
+  position: relative;
+  z-index: 10;
 }
 
 .report-v2-footer-actions {
@@ -16517,20 +16833,30 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   gap: 12px;
   width: 100%;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 /* 模式选择按钮推到 footer 最左边，其他按钮留在右侧 */
 .report-v2-footer-actions .model-mode-wrapper {
   margin-right: auto;
+  flex-shrink: 0;
+}
+
+/* 操作栏位于弹窗顶部，模式选择菜单改为向下弹出（避免向上覆盖标题栏） */
+.report-v2-footer-actions .model-mode-menu {
+  bottom: auto;
+  top: calc(100% + 8px);
 }
 
 .report-v2-btn {
   padding: 8px 20px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
   transition: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .report-v2-btn.primary {
@@ -16564,11 +16890,20 @@ div.supplemental-info-modal .supplemental-info-footer .count {
 /* ── 响应式 ── */
 @media (max-width: 768px) {
   .report-modal-v2 {
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
     height: 100vh;
+    height: 100dvh;
     max-height: 100%;
     border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* 移动端空态同样收缩高度 */
+  .report-modal-v2--empty {
+    height: auto;
+    max-height: 100vh;
+    max-height: 100dvh;
   }
 
   .report-v2-body {
@@ -16579,8 +16914,17 @@ div.supplemental-info-modal .supplemental-info-footer .count {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid hsl(var(--color-border, 30 10% 90%));
-    /* 移动端给侧边栏足够高度展示目录，避免内容被裁剪 */
-    max-height: 40vh;
+    /* 移动端侧栏限制最大高度并内部滚动，避免大纲树过长被整体裁切看不到 */
+    max-height: 45vh;
+    overflow-y: auto;
+    flex-shrink: 1;
+    padding: 12px var(--space-3);
+    gap: 10px;
+  }
+
+  /* 移动端：点击生成报告后，隐藏侧栏（报告模板），main 全屏展示生成过程与报告内容 */
+  .report-modal-v2.report-started .report-v2-sidebar {
+    display: none;
   }
 
   /* 移动端下大纲 section 不再强制撑满，恢复自然高度由 sidebar 统一滚动 */
@@ -16592,5 +16936,148 @@ div.supplemental-info-modal .supplemental-info-footer .count {
   .sidebar-outline-body .report-outline-editor {
     height: auto;
     flex: 0 0 auto;
+    background: transparent;
+    border: none;
+  }
+
+  /* 移动端模板/大纲卡片隐藏外壳容器，让侧边栏紧凑 */
+  .sidebar-outline-body .outline-editor-header,
+  .sidebar-outline-body .template-description,
+  .sidebar-outline-body .outline-editor-hint {
+    display: none;
+  }
+
+  /* 移动端大纲树整体缩小字号并紧凑 */
+  .report-v2-sidebar .outline-tree {
+    font-size: var(--text-xs);
+    padding: var(--space-1);
+  }
+
+  /* 移动端大纲节点行紧凑 */
+  .report-v2-sidebar .outline-node-row {
+    padding: 2px var(--space-1);
+  }
+
+  /* 移动端：让双栏在移动端变成上下布局后，右侧内容区可滚动 */
+  .report-v2-main {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* 移动端：模板选择下拉允许横向占满 */
+  .report-v2-sidebar .sidebar-select {
+    width: 100%;
+  }
+
+  /* 移动端：缩小侧栏标签字号 */
+  .report-v2-sidebar .sidebar-label {
+    font-size: 0.7rem;
+  }
+
+  /* 报告页 footer：模型选择与操作按钮（窄屏允许换行，避免按钮被挤出屏幕） */
+  .report-v2-footer {
+    padding: 10px var(--space-3);
+  }
+
+  .report-v2-footer-actions {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    row-gap: 8px;
+  }
+
+  .report-v2-footer-actions .model-mode-wrapper {
+    width: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+  }
+
+  .report-v2-footer-actions .report-v2-btn {
+    flex: 0 0 auto;
+    padding: 8px var(--space-2);
+    font-size: var(--text-xs);
+    min-width: 0;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   移动端全局溢出修复（≤768px）
+   问题根因：flex 链 min-width: auto（= min-content）导致
+   .feature-result 被内部表格/表单内容撑大到 500~800px，
+   再被 .feature-content-area 的 overflow-x: hidden 裁切，
+   表现为表单/排盘结果右侧内容被截断且无法横向滚动。
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+  /* flex 链允许收缩到容器宽度以下 */
+  .feature-layout.bottom .feature-result,
+  .feature-bazi,
+  .bazi-form-card,
+  .bazi-form-row,
+  .bazi-result,
+  .bazi-combined-card,
+  .bazi-chart-content-wrapper,
+  .bazi-table-section {
+    min-width: 0;
+  }
+
+  /* 移动端：整张排盘卡统一横向滚动（不再每张表各自带滚动条） */
+  .bazi-card-content {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 移动端表单容器不再维持桌面端 520px 上限 */
+  .feature-bazi {
+    max-width: 100%;
+  }
+
+  /* 信息面板（真太阳时/地址经纬）填满父容器，桌面端 410px 在移动端会溢出 */
+  .feature-bazi > .bazi-form-card .bazi-info-panel,
+  .ziwei-form-card > .bazi-info-panel {
+    width: 100%;
+  }
+
+  /* 表单控件允许收缩到 min-content 以下（input 默认 size 属性会撑出最小宽度） */
+  .bazi-form-input,
+  .bazi-form-select,
+  .bazi-form-row input,
+  .bazi-form-row select,
+  .bazi-form-row textarea {
+    min-width: 0;
+  }
+
+  /* 姓名输入组/出生地点输入组：允许在行内收缩，避免右侧档案按钮/定位按钮被挤出视口 */
+  .bazi-name-input-group,
+  .bazi-location-wrapper,
+  .bazi-location-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bazi-location-input .bazi-form-input {
+    min-width: 0;
+  }
+
+  /* 起卦方式/公历农历切换按钮组在窄屏等宽排布，按钮文字保持单行（避免"时间起/卦"换行错位） */
+  .bazi-calendar-toggle {
+    flex: 1 1 auto;
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .bazi-calendar-toggle .bazi-calendar-btn {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    white-space: nowrap;
+    line-height: 1.2;
+    padding: var(--space-2) var(--space-2);
+  }
+
+  /* 触控目标优化：移动端提交/排盘类主按钮保证足够触控高度 */
+  .bazi-submit-btn {
+    min-height: 44px;
   }
 }

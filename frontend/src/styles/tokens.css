@@ -219,3 +219,61 @@ body {
     scroll-behavior: smooth;
   }
 }
+
+/* =========================================
+   iOS Safari 专项适配
+   ========================================= */
+
+/* 1. 输入控件聚焦防自动放大：iOS Safari 对 font-size < 16px 的
+      input/textarea/select 聚焦时会整体缩放页面。统一在触控设备上
+      将输入控件字号提升到 16px（视觉差异极小，但避免页面跳动）。 */
+@media (hover: none) and (pointer: coarse) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* 2. hover 粘滞：iOS 首次点击后 :hover 会“粘住”不消失。
+      触控设备上禁用 hover 视觉反馈，用 :active 表达按下态。
+      覆盖项目中最常用的交互按钮/列表项，避免点击后背景色残留。 */
+@media (hover: none) and (pointer: coarse) {
+  .icon-btn:hover,
+  .icon-btn-sm:hover,
+  .sidebar-icon-btn:hover,
+  .login-forgot-btn:hover,
+  .login-register-btn:hover,
+  .login-close-btn:hover,
+  .bazi-region-modal-close:hover,
+  .kb-list-item:hover,
+  .kb-tree-item:hover,
+  .ak-list-item:hover {
+    background: transparent;
+    color: inherit;
+  }
+
+  /* 按下态反馈（触控设备替代 hover） */
+  .icon-btn:active,
+  .icon-btn-sm:active,
+  .sidebar-icon-btn:active {
+    background: hsl(var(--color-bg-hover));
+  }
+}
+
+/* 3. 通用触控目标兜底：交互型小图标按钮在触控设备上扩大点击热区。
+      通过 min-width/min-height 扩展命中区域（flex 居中，视觉不变）。 */
+@media (hover: none) and (pointer: coarse) {
+  .icon-btn-sm,
+  .bazi-region-modal-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* 通用：凡带 close / toggle / 图标 语义的小按钮，至少保证 40px 触控目标 */
+  button[class*='close'],
+  button[class*='toggle'] {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}

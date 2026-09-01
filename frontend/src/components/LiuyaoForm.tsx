@@ -499,6 +499,14 @@ function LiuyaoResultView({
           </div>
 
           <div className="bazi-card-actions" onClick={(e) => e.stopPropagation()}>
+            {/* 解盘报告按钮 - 位于展开/收缩按钮左侧 */}
+            <button
+              type="button"
+              className="bazi-toolbar-btn"
+              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
+            >
+              解盘报告
+            </button>
             <button
               type="button"
               className="bazi-expand-btn"
@@ -514,15 +522,6 @@ function LiuyaoResultView({
                   <path d="M12 5l7 7-7 7" />
                 </svg>
               )}
-            </button>
-            {/* 解盘报告按钮 - 位于展开/收缩按钮下方 */}
-            <button
-              type="button"
-              className="bazi-toolbar-btn"
-              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
-              style={{ marginTop: '4px' }}
-            >
-              解盘报告
             </button>
           </div>
         </div>

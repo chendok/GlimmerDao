@@ -1002,6 +1002,14 @@ function HuangliResultView({
           </div>
 
           <div className="bazi-card-actions" onClick={(e) => e.stopPropagation()}>
+            {/* 解盘报告按钮 - 位于展开/收缩按钮左侧 */}
+            <button
+              type="button"
+              className="bazi-toolbar-btn"
+              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
+            >
+              解盘报告
+            </button>
             <button
               type="button"
               className="bazi-expand-btn"
@@ -1017,14 +1025,6 @@ function HuangliResultView({
                   <path d="M12 5l7 7-7 7" />
                 </svg>
               )}
-            </button>
-            <button
-              type="button"
-              className="bazi-toolbar-btn"
-              onClick={(e) => { e.stopPropagation(); setShowReportModal(true); }}
-              style={{ marginTop: '4px' }}
-            >
-              解盘报告
             </button>
           </div>
         </div>

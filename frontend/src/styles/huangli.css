@@ -309,7 +309,7 @@
 }
 
 .huangli-person-ts-label {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: hsl(var(--color-text-muted));
   font-weight: var(--weight-medium);
 }
@@ -1227,11 +1227,11 @@
   }
 
   .huangli-cell-lunar {
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   .huangli-cell-badge {
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   .huangli-detail-yiji {
@@ -1322,11 +1322,11 @@
   }
 
   .huangli-cell-lunar {
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
 
   .huangli-cell-badge {
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
 
   .huangli-auspicious-card {

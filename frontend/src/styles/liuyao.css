@@ -76,9 +76,14 @@
   line-height: 1.6;
 }
 
-/* 说明文字单行完整显示 */
+/* 说明文字单行完整显示（桌面）；移动端允许换行，避免横向溢出被裁切 */
 .liuyao-coin-info p:first-of-type {
   white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .liuyao-coin-info p:first-of-type {
+    white-space: normal;
+  }
 }
 
 /* ── 摇卦结果显示 ── */
@@ -302,6 +307,11 @@
   line-height: 1.6;
   text-align: center;
   white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .liuyao-manual-hint {
+    white-space: normal;
+  }
 }
 
 /* ── 手工录入行（与摇卦结果显示完全一致） ── */
@@ -532,8 +542,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-3) var(--space-4);
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2) var(--space-3);
   background:
     linear-gradient(180deg,
       hsl(var(--color-bg-elevated) / 0.4),
@@ -541,7 +551,7 @@
     hsl(var(--color-bg-secondary));
   border: 1px solid hsl(var(--color-border-light) / 0.7);
   border-top: 2px solid hsl(var(--color-accent) / 0.4);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   position: relative;
   box-shadow:
     inset 0 1px 0 hsl(0 0% 100% / 0.02),
@@ -768,7 +778,7 @@
   .liuyao-table-header,
   .liuyao-table-row {
     grid-template-columns: 30px 42px 34px 1fr 1fr 36px;
-    font-size: 12px;
+    font-size: var(--text-xs);
     gap: 0;
   }
 

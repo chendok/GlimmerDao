@@ -218,7 +218,10 @@ const InputBar = forwardRef<InputBarHandle, InputBarProps>(function InputBar({ g
 
     const measure = () => {
       const vw = window.innerWidth
-      const vh = window.innerHeight
+      // iOS Safari：innerHeight 不随地址栏伸缩/键盘弹出变化，
+      // 优先用 visualViewport.height 获取真实可视高度。
+      const vv = window.visualViewport
+      const vh = vv ? vv.height : window.innerHeight
       // 使用一级菜单整体作为定位参考（.skill-menu-items 是 .skill-plus-menu 的直接子元素）
       const wrapperEl = el.parentElement as HTMLElement | null
       const wrapperRect = wrapperEl ? wrapperEl.getBoundingClientRect() : el.getBoundingClientRect()
@@ -242,9 +245,12 @@ const InputBar = forwardRef<InputBarHandle, InputBarProps>(function InputBar({ g
     // 技能列表异步加载后再次测量，确保拿到真实高度
     const timer = setTimeout(measure, 80)
     window.addEventListener('resize', measure)
+    // iOS 键盘弹出/收起时 visualViewport 会 resize，重新测量
+    window.visualViewport?.addEventListener('resize', measure)
     return () => {
       clearTimeout(timer)
       window.removeEventListener('resize', measure)
+      window.visualViewport?.removeEventListener('resize', measure)
     }
   }, [skillsExpanded, skillsHovered, skillsSubmenuHovered, showSkillMenu, skillsLoading])
 

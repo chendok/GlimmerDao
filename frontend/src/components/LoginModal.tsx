@@ -69,6 +69,52 @@ export default function LoginModal() {
   const [resetConfirmPwd, setResetConfirmPwd] = useState('')
   const [resetConfirmError, setResetConfirmError] = useState('')
   const [resetSuccess, setResetSuccess] = useState(false)
+  const modalRef = useRef<HTMLDivElement | null>(null)
+
+  // iOS Safari 适配：键盘弹出时收缩遮罩到可视视口，并把聚焦输入框滚入可视区
+  useEffect(() => {
+    if (!loginModalOpen) return
+    const modal = modalRef.current
+    if (!modal) return
+
+    const scrollFocusedInputIntoView = () => {
+      const el = document.activeElement
+      if (!el || !(el instanceof HTMLInputElement)) return
+      // 延迟到键盘动画稳定后再滚动
+      window.setTimeout(() => {
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      }, 350)
+    }
+
+    const handleFocusIn = () => scrollFocusedInputIntoView()
+    modal.addEventListener('focusin', handleFocusIn)
+
+    // visualViewport 在 iOS Safari 上反映排除键盘后的真实可视高度
+    const vv = window.visualViewport
+    let raf = 0
+    const handleVvResize = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        const overlay = modal.closest('.login-overlay') as HTMLElement | null
+        if (overlay && vv) {
+          overlay.style.height = `${vv.height}px`
+        }
+        scrollFocusedInputIntoView()
+      })
+    }
+    vv?.addEventListener('resize', handleVvResize)
+
+    return () => {
+      modal.removeEventListener('focusin', handleFocusIn)
+      vv?.removeEventListener('resize', handleVvResize)
+      cancelAnimationFrame(raf)
+      // 还原遮罩高度，避免关闭弹窗后布局残留
+      const overlay = modal.closest('.login-overlay') as HTMLElement | null
+      if (overlay) {
+        overlay.style.height = ''
+      }
+    }
+  }, [loginModalOpen])
 
   useEffect(() => {
     return () => {
@@ -367,7 +413,7 @@ export default function LoginModal() {
 
   return ReactDOM.createPortal(
     <div className="login-overlay" onClick={handleClose}>
-      <div className="login-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="login-modal" ref={modalRef} onClick={(e) => e.stopPropagation()}>
         <div className="login-top-bar">
           {view !== 'login' && (
             <button type="button" className="login-back-btn" onClick={handleBack}>
@@ -378,7 +424,7 @@ export default function LoginModal() {
             </button>
           )}
           <button type="button" className="login-close-btn" onClick={handleClose} aria-label="关闭">
-            <svg width="12" height="13" fill="none" viewBox="0 0 12 13">
+            <svg width="20" height="20" fill="none" viewBox="0 0 12 13" className="login-close-icon">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.667" d="m11 1.5-10 10m0-10 10 10" />
             </svg>
           </button>

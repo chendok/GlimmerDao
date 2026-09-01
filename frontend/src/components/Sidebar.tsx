@@ -47,7 +47,7 @@ export default function Sidebar({ mode, onToggleMode, onSelectFeature, onBackToC
   } = useChatContext()
 
   const { user, isLoggedIn, openLoginModal, logout } = useAuth()
-  const [activeTab, setActiveTab] = useState<'sessions' | 'topics' | ''>('sessions')
+  const [activeTab, setActiveTab] = useState<'sessions' | 'topics' | ''>('topics')
   const [settingsExpanded, setSettingsExpanded] = useState(false)
   const [themeExpanded, setThemeExpanded] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -243,6 +243,12 @@ export default function Sidebar({ mode, onToggleMode, onSelectFeature, onBackToC
   // ── 完整模式 (展开) ──
   return (
     <>
+      {/* 移动端遮罩：点击关闭侧边栏（桌面端 CSS 会隐藏） */}
+      <div
+        className="sidebar-overlay-mobile"
+        onClick={onToggleMode}
+        aria-hidden="true"
+      />
       <aside className="sidebar full-mode" style={{ width: sidebarWidth }}>
       {/* 拖拽手柄 */}
       <div

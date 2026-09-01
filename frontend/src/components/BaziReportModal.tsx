@@ -34,18 +34,19 @@ const CHART_TYPE_DISPLAY_LABEL: Record<string, string> = {
   '六爻': '六爻占卜',
   '梅花易数': '梅花易数',
   '黄历择吉': '黄历择吉',
+  '麻衣神相': '麻衣神相',
 }
 
 // ── Props ──
 interface BaziReportModalProps {
-  /** 排盘类型：八字/紫微/六爻/梅花易数/黄历择吉 */
-  chartType: '八字' | '紫微' | '六爻' | '梅花易数' | '黄历择吉'
+  /** 排盘类型：八字/紫微/六爻/梅花易数/黄历择吉/麻衣神相 */
+  chartType: '八字' | '紫微' | '六爻' | '梅花易数' | '黄历择吉' | '麻衣神相'
   /** 排盘对象姓名 */
   chartName: string
   /** 排盘上下文数据（序列化后的文本） */
   contextData: string
-  /** 用于自动保存档案的排盘信息（档案库不存在时使用） */
-  archiveData: {
+  /** 用于自动保存档案的排盘信息（档案库不存在时使用；麻衣神相等无档案数据时可省略） */
+  archiveData?: {
     name: string
     gender: string
     birth_datetime: string
@@ -127,7 +128,7 @@ export default function BaziReportModal({
         if (!res.ok) throw new Error('加载失败')
         const data: SkillInfo[] = await res.json()
         // 严格按排盘类型过滤
-        const contextKey = chartType === '八字' ? 'bazi' : chartType === '紫微' ? 'ziwei' : chartType === '六爻' ? 'liuyao' : chartType === '梅花易数' ? 'meihua' : 'huangli'
+        const contextKey = chartType === '八字' ? 'bazi' : chartType === '紫微' ? 'ziwei' : chartType === '六爻' ? 'liuyao' : chartType === '梅花易数' ? 'meihua' : chartType === '麻衣神相' ? 'physiognomy' : 'huangli'
         const filtered = data.filter((s) => s.context_requires === contextKey)
         setSkills(filtered)
         if (filtered.length > 0) {
@@ -176,6 +177,16 @@ export default function BaziReportModal({
                   context_requires: 'meihua',
                 },
               ]
+            : chartType === '麻衣神相'
+            ? [
+                {
+                  name: 'physiognomy_analysis',
+                  display_name: '微光问道麻衣神相分析',
+                  description: '麻衣神相面相手相命理分析',
+                  icon: '👤',
+                  context_requires: 'physiognomy',
+                },
+              ]
             : [
                 {
                   name: '微光问道黄道择吉分析',
@@ -203,6 +214,7 @@ export default function BaziReportModal({
       chartType === '紫微' ? 'ziwei' :
       chartType === '六爻' ? 'liuyao' :
       chartType === '梅花易数' ? 'meihua' :
+      chartType === '麻衣神相' ? 'mayi' :
       'huangli'
     const fetchTemplates = async () => {
       try {
@@ -864,8 +876,8 @@ export default function BaziReportModal({
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ...archiveData,
-          supplemental_info: archiveData.supplemental_info,
+          ...(archiveData || {}),
+          supplemental_info: archiveData?.supplemental_info,
           group_name: '其他',
         }),
       })
@@ -1024,7 +1036,7 @@ export default function BaziReportModal({
 
   return (
     <div className="report-modal-overlay">
-      <div className="report-modal-v2">
+      <div className={`report-modal-v2${!showContent && !generating && !error ? ' report-modal-v2--empty' : ''}${generating || showContent ? ' report-started' : ''}`}>
         {/* ── 头部（固定） ── */}
         <div className="report-v2-header">
           <div className="report-v2-header-left">
@@ -1097,6 +1109,13 @@ export default function BaziReportModal({
 
           {/* 右侧内容区 */}
           <main className="report-v2-main">
+            {/* 空态提示：未生成报告时填充内容区，避免下方大片空白 */}
+            {!showContent && !generating && !error && (
+              <div className="report-v2-empty-hint">
+                <div className="report-v2-empty-icon">📄</div>
+                <p className="report-v2-empty-text">请选择报告模板，点击上方「生成报告」开始解盘</p>
+              </div>
+            )}
             {error && (
               <div className="report-v2-error">
                 <span>{error}</span>
@@ -1266,18 +1285,6 @@ export default function BaziReportModal({
                 </>
               )}
 
-              {/* 空态 */}
-              {!showContent && !generating && !error && (
-                <div className="report-v2-empty">
-                  <div className="report-v2-empty-icon">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                    </svg>
-                  </div>
-                  <p className="report-v2-empty-text">选择模板后点击「生成报告」开始</p>
-                </div>
-              )}
             </div>
           </main>
         </div>

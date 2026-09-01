@@ -23,7 +23,7 @@ import {
 } from '../utils/serializePhysiognomyContext'
 import type { ArchiveItem } from '../context/ArchiveContext'
 import ArchivePickerModal from './ArchivePickerModal'
-import PhysiognomyReportModal from './PhysiognomyReportModal'
+import BaziReportModal from './BaziReportModal'
 import PhysiognomyInfoModal from './PhysiognomyInfoModal'
 import BackButton from './BackButton'
 import { API_BASE, TOKEN_KEY } from '../utils/constants'
@@ -425,6 +425,13 @@ export default function PhysiognomyForm({
               <div className="bazi-card-actions" onClick={(e) => e.stopPropagation()}>
                 <button
                   type="button"
+                  className="bazi-toolbar-btn"
+                  onClick={(e) => { e.stopPropagation(); setShowReport(true); }}
+                >
+                  解盘报告
+                </button>
+                <button
+                  type="button"
                   className="bazi-expand-btn"
                   aria-expanded={cardExpanded}
                   onClick={() => setCardExpanded((v) => !v)}
@@ -438,14 +445,6 @@ export default function PhysiognomyForm({
                       <path d="M12 5l7 7-7 7" />
                     </svg>
                   )}
-                </button>
-                <button
-                  type="button"
-                  className="bazi-toolbar-btn"
-                  onClick={(e) => { e.stopPropagation(); setShowReport(true); }}
-                  style={{ marginTop: '4px' }}
-                >
-                  解盘报告
                 </button>
               </div>
             </div>
@@ -802,10 +801,10 @@ export default function PhysiognomyForm({
         onSelectArchive={handleSelectArchive}
       />
 
-      {/* 报告弹窗 */}
+      {/* 报告弹窗（与八字统一的解盘报告界面） */}
       {showReport && contextData && (
-        <PhysiognomyReportModal
-          analysisType={analysisType}
+        <BaziReportModal
+          chartType="麻衣神相"
           chartName={name || '命主'}
           contextData={serializePhysiognomyContext(contextData)}
           onClose={() => setShowReport(false)}

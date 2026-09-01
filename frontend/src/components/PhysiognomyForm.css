@@ -75,6 +75,21 @@
   padding: var(--space-2) var(--space-4);
 }
 
+/* 移动端：采集方式固定横向 segmented control，避免按钮竖向换行错位 */
+@media (max-width: 768px) {
+  .physio-form-card .bazi-calendar-toggle {
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+  }
+
+  .physio-form-card .bazi-calendar-toggle .bazi-calendar-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    padding: var(--space-2) var(--space-2);
+  }
+}
+
 /* ── 信息配置区折叠摘要 ── */
 .physio-info-summary {
   display: flex;
@@ -374,7 +389,7 @@
   background: hsl(var(--color-error) / 0.85);
   color: #fff;
   border: none;
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -392,10 +407,11 @@
   bottom: 4px;
   left: 4px;
   padding: 1px 6px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   border-radius: var(--radius-sm);
   background: hsl(var(--color-bg-primary) / 0.8);
   color: hsl(var(--color-text-secondary));
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 

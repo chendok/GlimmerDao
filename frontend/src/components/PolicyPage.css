@@ -1,5 +1,6 @@
 .policy-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg-page, #f7f8fa);
   display: flex;
   flex-direction: column;
@@ -14,9 +15,25 @@
   box-sizing: border-box;
 }
 
+/* 移动端：收紧内边距，保证小屏完整呈现且底部留安全区 */
+@media (max-width: 480px) {
+  .policy-page-body {
+    padding: 24px 16px calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .policy-page-title {
+    font-size: var(--text-2xl);
+  }
+
+  .policy-paragraph {
+    font-size: var(--text-sm);
+    line-height: 1.7;
+  }
+}
+
 .policy-page-title {
   margin: 0 0 8px;
-  font-size: 28px;
+  font-size: var(--text-3xl);
   font-weight: 700;
   color: #111827;
   text-align: center;
@@ -24,7 +41,7 @@
 
 .policy-page-meta {
   margin-bottom: 32px;
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: #9ca3af;
   text-align: center;
 }
@@ -35,14 +52,14 @@
 
 .policy-section-title {
   margin: 0 0 12px;
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: #1f2937;
 }
 
 .policy-paragraph {
   margin: 0 0 10px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.8;
   color: #4b5563;
 }
@@ -52,6 +69,6 @@
   padding-top: 16px;
   border-top: 1px solid #f0f0f0;
   text-align: center;
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: #9ca3af;
 }

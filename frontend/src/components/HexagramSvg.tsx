@@ -91,9 +91,9 @@ export default function HexagramSvg({
   if (processedYaos.length === 0) return null
 
   const sizeMap = {
-    sm: { width: 80, height: 108, lineGap: 14, lineLen: 52, strokeW: 3, fontSize: 10 },
-    md: { width: 100, height: 144, lineGap: 18, lineLen: 70, strokeW: 3.5, fontSize: 12 },
-    lg: { width: 120, height: 180, lineGap: 22, lineLen: 86, strokeW: 4, fontSize: 14 },
+    sm: { width: 60, height: 84, lineGap: 11, lineLen: 40, strokeW: 2.5, fontSize: 9 },
+    md: { width: 76, height: 108, lineGap: 14, lineLen: 52, strokeW: 3, fontSize: 10 },
+    lg: { width: 92, height: 136, lineGap: 17, lineLen: 66, strokeW: 3.5, fontSize: 12 },
   }
   const s = sizeMap[size]
 
